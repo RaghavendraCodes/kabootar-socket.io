@@ -5,8 +5,6 @@ import cors from 'cors';
 
 const app = express();
 app.use(cors());
-
-const PORT = process.env.PORT;
 const server = createServer(app);
 const io = new Server(server, {
   cors: {
@@ -59,6 +57,6 @@ app.get('/', (req, res) => {
   res.send('hello world!');
 });
 
-server.listen(PORT, () => {
-  console.log(`Server is running on port ${PORT}`);
+server.listen(process.env.PORT, () => {
+  console.log(`Server is running on port ${process.env.PORT}`);
 });
