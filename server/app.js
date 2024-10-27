@@ -6,7 +6,7 @@ import cors from 'cors';
 const app = express();
 app.use(cors());
 
-const PORT = 8080;
+const PORT = process.env.PORT;
 const server = createServer(app);
 const io = new Server(server, {
   cors: {
@@ -18,7 +18,7 @@ const io = new Server(server, {
 let activeUsers = {}; // Store active users with socket IDs
 
 io.on('connection', (socket) => {
-  console.log('A user connected:', socket.id);
+  //console.log('A user connected:', socket.id);
 
   // Listen for 'join' event to register the username
   socket.on('join', ({ username }) => {
@@ -43,7 +43,7 @@ io.on('connection', (socket) => {
   // Handle disconnection
   socket.on('disconnect', () => {
     if (socket.username) {
-      console.log(`${socket.username} disconnected`);
+      // console.log(`${socket.username} disconnected`);
       delete activeUsers[socket.id]; // Remove user from active users
 
       // Notify everyone that this user has disconnected
