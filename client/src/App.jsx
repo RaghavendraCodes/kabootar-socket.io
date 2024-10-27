@@ -4,7 +4,10 @@ import React, { useEffect, useMemo, useRef, useState } from 'react';
 import { io } from 'socket.io-client';
 
 function App() {
-  const socket = useMemo(() => io(process.env.LOCALHOST_SERVER), []);
+
+  // console.log('Localhost Server:', process.env.REACT_APP_LOCALHOST_SERVER);
+
+  const socket = useMemo(() => io("http://localhost:8000"), []);
 
   const [username, setUsername] = useState('');
   const [message, setMessage] = useState('');
