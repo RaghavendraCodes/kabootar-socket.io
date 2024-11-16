@@ -7,6 +7,7 @@ import dotenv from 'dotenv'; // Import dotenv
 const app = express();
 app.use(cors());
 dotenv.config();
+
 const server = createServer(app);
 const io = new Server(server, {
   cors: {
@@ -15,11 +16,14 @@ const io = new Server(server, {
   },
 });
 
+// Add a basic route for the root
+app.get('/', (req, res) => {
+  res.send('Chat server is running!');
+});
+
 let activeUsers = {}; // Store active users with socket IDs
 
 io.on('connection', (socket) => {
-  //console.log('A user connected:', socket.id);
-
   // Listen for 'join' event to register the username
   socket.on('join', ({ username }) => {
     socket.username = username;
@@ -43,7 +47,6 @@ io.on('connection', (socket) => {
   // Handle disconnection
   socket.on('disconnect', () => {
     if (socket.username) {
-      // console.log(`${socket.username} disconnected`);
       delete activeUsers[socket.id]; // Remove user from active users
 
       // Notify everyone that this user has disconnected
@@ -55,8 +58,8 @@ io.on('connection', (socket) => {
   });
 });
 
-const PORTS = process.env.PORT || 4000;
+const PORT = process.env.PORT || 4000;
 
-server.listen(PORTS, () => {
-  console.log(`Server is running on port ${8000}`);
+server.listen(PORT, () => {
+  console.log(`Server is running on port ${PORT}`);
 });
