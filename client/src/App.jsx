@@ -7,7 +7,7 @@ function App() {
 
   // console.log('Localhost Server:', process.env.REACT_APP_LOCALHOST_SERVER);
 
-  const socket = useMemo(() => io("http://localhost:8000"), []);
+  const socket = useMemo(() => io("https://kabootar-jaa-kabootar.onrender.com"), []);
 
   const [username, setUsername] = useState('');
   const [message, setMessage] = useState('');
